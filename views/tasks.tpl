@@ -58,7 +58,11 @@
             <td>{{ task.get_priority() }}</td>
             <td>{{ task.get_due_date() }}</td>
             <td>
-                <button class="btn btn-sm btn-secondary" disabled>Editar</button>
+                <a href="/tasks/edit/{{ task.get_id() }}" class="btn btn-sm btn-info">Editar</a>
+
+                <form action="/tasks/delete/{{ task.get_id() }}" method="post" class="d-inline">
+                    <button type="submit" class="btn btn-sm btn-danger" onclick="return confirm('Tem certeza?');">Excluir</button>
+                </form>
             </td>
         </tr>
         % end

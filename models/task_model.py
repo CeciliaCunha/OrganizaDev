@@ -32,6 +32,22 @@ class TaskModel:
         self._tasks.append(task)
         self._save()
         return task
+    
+    def update_task(self, updated_task):
+        for i, task in enumerate(self._tasks):
+            if task.get_id() == updated_task.get_id():
+                self._tasks[i] = updated_task
+                self._save()
+                return True
+        return False
+    
+    def delete_task(self, task_id):
+        initial_len = len(self._tasks)
+        self._tasks = [t for t in self._tasks if t.get_id() != task_id]
+        if len(self._tasks) < initial_len:
+            self._save()
+            return True
+        return False
 
     def delete_by_project_id(self, project_id):
         initial_len = len(self._tasks)
@@ -40,3 +56,9 @@ class TaskModel:
             self._save()
             return True
         return False
+    
+    def get_by_id(self, task_id):
+        for task in self._tasks:
+            if task.get_id() == task_id:
+                return task
+        return None
