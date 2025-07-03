@@ -1,7 +1,8 @@
 import os
 
 class Config:
-    BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
+    # A linha abaixo foi corrigida (apenas um os.path.dirname)
+    BASE_DIR = os.path.dirname(os.path.abspath(__file__))
 
     # Configurações do servidor
     HOST = 'localhost'
@@ -9,7 +10,7 @@ class Config:
     DEBUG = True
     RELOADER = True
 
-    # Paths
+    # Paths (agora funcionarão corretamente)
     TEMPLATE_PATH = os.path.join(BASE_DIR, 'views')
     STATIC_PATH = os.path.join(BASE_DIR, 'static')
     DATA_PATH = os.path.join(BASE_DIR, 'data')
