@@ -11,6 +11,7 @@ class App:
 
         self.bottle = Bottle()
         self.config = Config()
+        self.bottle.config['SECRET_KEY'] = self.config.SECRET_KEY
         self.setup_routes()
 
     def setup_routes(self):

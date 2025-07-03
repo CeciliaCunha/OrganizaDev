@@ -42,6 +42,3 @@ class ProjectController(BaseController):
     def delete_project(self, project_id):
         self.project_service.delete_project_and_tasks(project_id)
         self.redirect('/projects')
-
-project_routes = Bottle()
-ProjectController(project_routes)

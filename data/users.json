@@ -1,8 +1,16 @@
 [
     {
         "id": 1,
-        "name": "Usuário Teste",
-        "email": "usuarioteste@email.com",
+        "name": "Usu\u00e1rio Teste",
+        "email": "teste@email.com",
+        "password": "123",
         "birthdate": "1999-10-21"
+    },
+    {
+        "id": 2,
+        "name": "Cec\u00c3\u00adlia Costa",
+        "email": "cecilia.cunha2004@gmail.com",
+        "password": "Ceci0811#",
+        "birthdate": "2004-11-08"
     }
 ]

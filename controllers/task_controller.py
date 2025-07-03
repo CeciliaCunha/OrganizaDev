@@ -82,6 +82,3 @@ class TaskController(BaseController):
             self.task_service.update_from_form(task_id)
             # Redireciona de volta para a lista de tarefas do projeto
             return self.redirect(f'/projects/{task.get_project_id()}/tasks')
-
-task_routes = Bottle()
-TaskController(task_routes)
