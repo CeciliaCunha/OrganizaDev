@@ -5,7 +5,7 @@
         "description": "",
         "start_date": "2025-07-11",
         "due_date": "2025-07-22",
-        "status": "Conclu\u00c3\u00addo",
+        "status": "ConcluÃ­do",
         "user_id": 1
     },
     {
@@ -14,7 +14,7 @@
         "description": "",
         "start_date": "2025-07-05",
         "due_date": "2025-07-08",
-        "status": "Conclu\u00c3\u00addo",
+        "status": "ConcluÃ­do",
         "user_id": 1
     },
     {
@@ -23,7 +23,7 @@
         "description": "3,",
         "start_date": "2025-07-19",
         "due_date": "2025-07-05",
-        "status": "Conclu\u00c3\u00addo",
+        "status": "ConcluÃ­do",
         "user_id": 1
     }
 ]

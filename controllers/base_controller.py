@@ -3,6 +3,10 @@ from functools import wraps
 from services.user_service import UserService 
 
 def login_required(f):
+    """
+    Decorador que verifica se um utilizador está logado através de um cookie.
+    Se não estiver logado, redireciona para a página de login.
+    """
     @wraps(f)
     def wrapper(self, *args, **kwargs):
         user_id = request.get_cookie('user_id', secret=self.app.config['SECRET_KEY'])
@@ -12,6 +16,10 @@ def login_required(f):
     return wrapper
 
 def admin_required(f):
+    """
+    Decorador que verifica se o utilizador está logado E se tem o papel de 'admin'.
+    Se não for admin, interrompe a requisição com um erro 403 (Acesso Proibido).
+    """
     @wraps(f)
     def wrapper(self, *args, **kwargs):
         user_id = request.get_cookie('user_id', secret=self.app.config['SECRET_KEY'])
@@ -29,12 +37,21 @@ def admin_required(f):
     return wrapper
 
 class BaseController:
+    """
+    Uma classe base para os outros controllers, contendo métodos úteis e partilhados.
+    """
     def __init__(self, app):
+        """Inicializa o controller com a instância principal da aplicação Bottle."""
         self.app = app
         
     def render(self, template_name, **context):
+        """
+        Renderiza um template, adicionando automaticamente a informação de login
+        a todas as páginas.
+        """
         context['logged_in_user_id'] = request.get_cookie('user_id', secret=self.app.config['SECRET_KEY'])
         return template(template_name, **context)
 
     def redirect(self, url):
+        """Redireciona o utilizador para um novo URL."""
         return redirect(url)

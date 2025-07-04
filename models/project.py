@@ -1,9 +1,9 @@
-from models.base_model import BaseModel # Importamos a classe mãe
+from models.base_model import BaseModel
 
 class Project(BaseModel):
+    """Representa um projeto, herdando atributos de BaseModel."""
     def __init__(self, id, name, description, start_date, due_date, status, user_id):
         super().__init__(id=id, name=name, description=description)
-        
         self._start_date = start_date
         self._due_date = due_date
         self._status = status
@@ -19,17 +19,14 @@ class Project(BaseModel):
     def set_status(self, status): self._status = status
 
     def to_dict(self):
-        data = {
-            "id": self.get_id(),
-            "name": self.get_name(),
-            "description": self.get_description(),
-            "start_date": self._start_date,
-            "due_date": self._due_date,
-            "status": self._status,
-            "user_id": self._user_id
+        """Converte o objeto Project para um dicionário."""
+        return {
+            "id": self.get_id(), "name": self.get_name(), "description": self.get_description(),
+            "start_date": self._start_date, "due_date": self._due_date,
+            "status": self._status, "user_id": self._user_id
         }
-        return data
 
     @classmethod
     def from_dict(cls, data):
+        """Cria uma instância de Project a partir de um dicionário."""
         return cls(**data)

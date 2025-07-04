@@ -1,4 +1,5 @@
 class User:
+    """Representa um utilizador no sistema."""
     def __init__(self, id, name, email, password, birthdate, role):
         self._id = id
         self._name = name
@@ -14,29 +15,21 @@ class User:
     def get_birthdate(self): return self._birthdate
     def get_role(self): return self._role
 
-    def set_name(self, name): self._name = name
-    def set_email(self, email): self._email = email
-    def set_password(self, password): self._password = password
-    def set_birthdate(self, birthdate): self._birthdate = birthdate
     def set_role(self, role): self._role = role
 
     def to_dict(self):
+        """Converte o objeto User para um dicionário."""
         return {
-            "id": self._id, 
-            "name": self._name, 
-            "email": self._email,
-            "password": self._password, 
-            "birthdate": self._birthdate,
+            "id": self._id, "name": self._name, "email": self._email,
+            "password": self._password, "birthdate": self._birthdate,
             "role": self._role
         }
 
     @classmethod
     def from_dict(cls, data):
+        """Cria uma instância de User a partir de um dicionário."""
         return cls(
-            id=data.get("id"),
-            name=data.get("name"),
-            email=data.get("email"),
-            password=data.get("password"),
-            birthdate=data.get("birthdate"),
+            id=data.get("id"), name=data.get("name"), email=data.get("email"),
+            password=data.get("password"), birthdate=data.get("birthdate"),
             role=data.get("role", "regular")
         )

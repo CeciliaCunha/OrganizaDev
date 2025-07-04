@@ -1,30 +1,23 @@
-% rebase('layout', title='Formulário Usuário')
+% rebase('layout.tpl', title=title)
 
-<section class="form-section">
-    <h1>{{'Editar Usuário' if user else 'Adicionar Usuário'}}</h1>
+<h1>{{ title }}</h1>
+
+<form action="{{ action }}" method="post">
+    <div class="mb-3">
+        <label for="name" class="form-label">Nome Completo:</label>
+        <input type="text" class="form-control" id="name" name="name" value="{{ user.get_name() if user else '' }}" required>
+    </div>
+    <div class="mb-3">
+        <label for="email" class="form-label">Email:</label>
+        <input type="email" class="form-control" id="email" name="email" value="{{ user.get_email() if user else '' }}" required>
+    </div>
+    <div class="mb-3">
+        <label for="birthdate" class="form-label">Data de Nascimento:</label>
+        <input type="date" class="form-control" id="birthdate" name="birthdate" value="{{ user.get_birthdate() if user else '' }}">
+    </div>
     
-    <form action="{{action}}" method="post" class="form-container">
-        <div class="form-group">
-            <label for="name">Nome:</label>
-            <input type="text" id="name" name="name" required 
-                   value="{{user.name if user else ''}}">
-        </div>
-        
-        <div class="form-group">
-            <label for="email">Email:</label>
-            <input type="email" id="email" name="email" required 
-                   value="{{user.email if user else ''}}">
-        </div>
-        
-        <div class="form-group">
-            <label for="birthdate">Data de Nascimento:</label>
-            <input type="date" id="birthdate" name="birthdate" required 
-                   value="{{user.birthdate if user else ''}}">
-        </div>
-        
-        <div class="form-actions">
-            <button type="submit" class="btn-submit">Salvar</button>
-            <a href="/users" class="btn-cancel">Voltar</a>
-        </div>
-    </form>
-</section>
+    <div class="form-actions">
+        <button type="submit" class="btn btn-success">Salvar</button>
+        <a href="/users" class="btn btn-secondary">Cancelar</a>
+    </div>
+</form>

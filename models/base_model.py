@@ -1,4 +1,8 @@
 class BaseModel:
+    """
+    Uma classe base para os outros modelos da aplicação.
+    Contém atributos e métodos comuns como id, nome e descrição.
+    """
     def __init__(self, id, name, description):
         self._id = id
         self._name = name

@@ -1,16 +1,19 @@
-from bottle import request, Bottle
+from bottle import request
 from .base_controller import BaseController, login_required
 from services.project_service import ProjectService
 from services.user_service import UserService
 
 class ProjectController(BaseController):
+    """Controla todas as rotas e lógicas relacionadas com a gestão de Projetos."""
     def __init__(self, app):
+        """Inicializa o controller, os serviços e configura as rotas."""
         super().__init__(app)
         self.project_service = ProjectService()
         self.user_service = UserService()
         self.setup_routes()
 
     def setup_routes(self):
+        """Mapeia as rotas de projetos para os métodos correspondentes."""
         self.app.route('/projects', 'GET', self.list_projects)
         self.app.route('/projects/add', ['GET', 'POST'], self.add_project)
         self.app.route('/projects/edit/<project_id:int>', ['GET', 'POST'], self.edit_project)
@@ -18,15 +21,15 @@ class ProjectController(BaseController):
 
     @login_required
     def list_projects(self):
+        """Exibe a lista de projetos que pertencem ao utilizador logado."""
         user_id = int(request.get_cookie('user_id', secret=self.app.config['SECRET_KEY']))
         projects = self.project_service.get_for_user(user_id)
         return self.render('projects', projects=projects, title="Meus Projetos")
 
     @login_required
     def add_project(self):
+        """Exibe o formulário (GET) ou processa a criação de um novo projeto (POST)."""
         if request.method == 'GET':
-            users = self.user_service.get_all()
-            sample_user_id = users[0].get_id() if users else 1
             return self.render('project_form', project=None, action="/projects/add", user_id_example=sample_user_id, title="Adicionar Projeto")
         else:
             user_id = int(request.get_cookie('user_id', secret=self.app.config['SECRET_KEY']))
@@ -35,6 +38,7 @@ class ProjectController(BaseController):
 
     @login_required
     def edit_project(self, project_id):
+        """Exibe o formulário para editar (GET) ou processa a alteração de um projeto (POST)."""
         project = self.project_service.get_by_id(project_id)
         if not project: return "Projeto não encontrado"
         
@@ -46,5 +50,6 @@ class ProjectController(BaseController):
     
     @login_required
     def delete_project(self, project_id):
+        """Processa a exclusão de um projeto e as suas tarefas associadas."""
         self.project_service.delete_project_and_tasks(project_id)
         self.redirect('/projects')
