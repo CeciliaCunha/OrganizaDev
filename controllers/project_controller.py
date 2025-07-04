@@ -43,9 +43,8 @@ class ProjectController(BaseController):
         else:
             self.project_service.edit_from_form(project_id)
             self.redirect('/projects')
-
+    
     @login_required
-
     def delete_project(self, project_id):
         self.project_service.delete_project_and_tasks(project_id)
         self.redirect('/projects')

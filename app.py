@@ -24,7 +24,12 @@ class App:
         def error404(err):
             user_id = request.get_cookie('user_id', secret=self.bottle.config['SECRET_KEY'])
             return template('error404.tpl', title="Erro 404", logged_in_user_id=user_id)
-
+        
+        @self.bottle.error(403)
+        def error403(err):
+            user_id = request.get_cookie('user_id', secret=self.bottle.config['SECRET_KEY'])
+            return template('error403.tpl', title="Acesso Proibido", logged_in_user_id=user_id)
+    
     def run(self):
         self.bottle.run(
             host=self.config.HOST,

@@ -31,11 +31,9 @@ def admin_required(f):
 class BaseController:
     def __init__(self, app):
         self.app = app
-
+        
     def render(self, template_name, **context):
-        logged_in_user_id = request.get_cookie('user_id', secret=self.app.config['SECRET_KEY'])
-    
-        context['logged_in_user_id'] = logged_in_user_id
+        context['logged_in_user_id'] = request.get_cookie('user_id', secret=self.app.config['SECRET_KEY'])
         return template(template_name, **context)
 
     def redirect(self, url):
