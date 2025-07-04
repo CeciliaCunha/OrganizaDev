@@ -14,7 +14,7 @@ class ProjectService:
     def get_by_id(self, project_id):
         return self.project_model.get_by_id(project_id)
 
-    def save_from_form(self):
+    def save_from_form(self, user_id):
         new_project = Project(
             id=None,
             name=request.forms.get('name'),
@@ -22,7 +22,7 @@ class ProjectService:
             start_date=request.forms.get('start_date'),
             due_date=request.forms.get('due_date'),
             status=request.forms.get('status'),
-            user_id=int(request.forms.get('user_id'))
+            user_id=user_id
         )
         return self.project_model.add(new_project)
 
@@ -40,7 +40,5 @@ class ProjectService:
         return project
 
     def delete_project_and_tasks(self, project_id):
-        # Deleta as tarefas associadas primeiro
         self.task_service.delete_by_project_id(project_id)
-        # Depois deleta o projeto
         return self.project_model.delete(project_id)

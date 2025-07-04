@@ -1,5 +1,5 @@
 from bottle import request, Bottle
-from .base_controller import BaseController
+from .base_controller import BaseController, login_required
 from services.project_service import ProjectService
 from services.task_service import TaskService
 from models.task import Task
@@ -17,13 +17,12 @@ class TaskController(BaseController):
         self.app.route('/tasks/delete/<task_id:int>', 'POST', self.delete_task)
         self.app.route('/tasks/edit/<task_id:int>', ['GET', 'POST'], self.edit_task)
 
+    @login_required 
     def tasks_page(self, project_id):
-        # Primeiro, sempre verifique se o projeto existe
         project = self.project_service.get_by_id(project_id)
         if not project:
             return "Projeto não encontrado"
 
-        # Se a requisição for POST, significa que estamos salvando uma nova tarefa
         if request.method == 'POST':
             new_task = Task(
                 id=None,
@@ -34,40 +33,28 @@ class TaskController(BaseController):
                 status='Pendente', # Status inicial padrão
                 project_id=project_id
             )
-            # O add do task_model cuidará de salvar
             self.task_service.task_model.add(new_task)
-            # Redireciona de volta para a mesma página para ver a lista atualizada
             return self.redirect(f'/projects/{project_id}/tasks')
 
-        # Se a requisição for GET, apenas mostramos a página
         tasks = self.task_service.get_tasks_for_project(project_id)
-        
-        # O título da página agora inclui o nome do projeto
         page_title = f"Tarefas do Projeto: {project.get_name()}"
-        
-        # Renderiza a view 'tasks.tpl', passando o projeto e suas tarefas
         return self.render('tasks', project=project, tasks=tasks, title=page_title)
 
+    @login_required 
     def delete_task(self, task_id):
-        # Primeiro, pegamos a tarefa para saber a qual projeto ela pertence
         task = self.task_service.get_by_id(task_id)
         if task:
             project_id = task.get_project_id()
-            # Agora, deletamos a tarefa
             self.task_service.delete(task_id)
-            # Redirecionamos de volta para a página de tarefas do projeto original
             return self.redirect(f'/projects/{project_id}/tasks')
-
-        # Se não encontrar a tarefa, apenas redireciona para a lista de projetos
         return self.redirect('/projects')
     
+    @login_required 
     def edit_task(self, task_id):
-        # Busca a tarefa pelo ID
         task = self.task_service.get_by_id(task_id)
         if not task:
             return "Tarefa não encontrada"
 
-        # Se a requisição for GET, apenas mostramos o formulário preenchido
         if request.method == 'GET':
             page_title = f"Editando Tarefa: {task.get_title()}"
             return self.render(
@@ -77,8 +64,6 @@ class TaskController(BaseController):
                 title=page_title
             )
     
-        # Se a requisição for POST, atualizamos os dados
         if request.method == 'POST':
             self.task_service.update_from_form(task_id)
-            # Redireciona de volta para a lista de tarefas do projeto
             return self.redirect(f'/projects/{task.get_project_id()}/tasks')

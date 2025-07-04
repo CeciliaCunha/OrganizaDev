@@ -27,7 +27,6 @@
             <option value="Concluído" % if project and project.get_status() == 'Concluído': selected % end>Concluído</option>
         </select>
     </div>
-    <input type="hidden" name="user_id" value="{{ project.get_user_id() if project else user_id_example }}">
     <button type="submit" class="btn btn-success">Salvar</button>
     <a href="/projects" class="btn btn-link">Cancelar</a>
 </form>
