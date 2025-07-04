@@ -37,3 +37,10 @@ class Task(BaseModel):
     @classmethod
     def from_dict(cls, data):
         return cls(**data)
+
+class MilestoneTask(Task):
+    def __init__(self, id, title, description, due_date, priority, status, project_id):
+        super().__init__(id, title, description, due_date, priority, status, project_id)
+    
+    def get_title(self):
+        return f"⭐ {super().get_title()}"

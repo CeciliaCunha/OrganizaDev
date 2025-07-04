@@ -2,7 +2,7 @@ from bottle import request, Bottle
 from .base_controller import BaseController, login_required
 from services.project_service import ProjectService
 from services.task_service import TaskService
-from models.task import Task
+from models.task import Task, MilestoneTask
 from bottle import redirect
 
 class TaskController(BaseController):
@@ -23,16 +23,25 @@ class TaskController(BaseController):
         if not project:
             return "Projeto não encontrado"
 
+    
         if request.method == 'POST':
-            new_task = Task(
-                id=None,
-                title=request.forms.get('title'),
-                description=request.forms.get('description'),
-                due_date=request.forms.get('due_date'),
-                priority=request.forms.get('priority'),
-                status='Pendente', # Status inicial padrão
-                project_id=project_id
-            )
+            is_milestone = request.forms.get('is_milestone')
+
+            task_data = {
+                "id": None,
+                "title": request.forms.get('title'),
+                "description": request.forms.get('description'),
+                "due_date": request.forms.get('due_date'),
+                "priority": request.forms.get('priority'),
+                "status": 'Pendente',
+                "project_id": project_id
+            }
+
+            if is_milestone:
+                new_task = MilestoneTask(**task_data)
+            else:
+                new_task = Task(**task_data)
+
             self.task_service.task_model.add(new_task)
             return self.redirect(f'/projects/{project_id}/tasks')
 

@@ -31,6 +31,14 @@
             <input type="date" class="form-control" id="due_date" name="due_date">
         </div>
     </div>
+
+    <div class="form-check mb-3">
+        <input class="form-check-input" type="checkbox" id="is_milestone" name="is_milestone" value="true">
+        <label class="form-check-label" for="is_milestone">
+            É uma Tarefa Marco (Milestone)?
+        </label>
+    </div>
+
     <button type="submit" class="btn btn-success">Adicionar Tarefa</button>
 </form>
 
