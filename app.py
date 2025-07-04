@@ -1,10 +1,9 @@
 import os
-from bottle import Bottle, TEMPLATE_PATH
+from bottle import Bottle, TEMPLATE_PATH, response, error, template, request
 from config import Config
 
 class App:
     def __init__(self):
-        # Configuração do caminho dos templates
         BASE_DIR = os.path.dirname(os.path.abspath(__file__))
         VIEWS_PATH = os.path.join(BASE_DIR, 'views')
         TEMPLATE_PATH.insert(0, VIEWS_PATH)
@@ -13,11 +12,18 @@ class App:
         self.config = Config()
         self.bottle.config['SECRET_KEY'] = self.config.SECRET_KEY
         self.setup_routes()
+        self.setup_error_handlers()
 
     def setup_routes(self):
         from controllers import init_controllers
         print('🚀 Inicializa rotas!')
         init_controllers(self.bottle)
+
+    def setup_error_handlers(self):
+        @self.bottle.error(404)
+        def error404(err):
+            user_id = request.get_cookie('user_id', secret=self.bottle.config['SECRET_KEY'])
+            return template('error404.tpl', title="Erro 404", logged_in_user_id=user_id)
 
     def run(self):
         self.bottle.run(

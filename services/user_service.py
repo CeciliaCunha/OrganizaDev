@@ -22,6 +22,7 @@ class UserService:
             name=request.forms.get('name'),
             email=request.forms.get('email'),
             password=request.forms.get('password'),
-            birthdate=request.forms.get('birthdate')
+            birthdate=request.forms.get('birthdate'),
+            role='regular' # <<< NOVO: Todo o novo utilizador é 'regular' por padrão
         )
         return self.user_model.add(new_user)

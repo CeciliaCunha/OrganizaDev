@@ -2,6 +2,7 @@ from bottle import request, response, redirect, Bottle
 from .base_controller import BaseController
 from services.user_service import UserService
 from models.user import User
+from .base_controller import BaseController, login_required, admin_required
 
 class UserController(BaseController):
     def __init__(self, app):
@@ -52,3 +53,8 @@ class UserController(BaseController):
     def list_users(self):
         users = self.user_service.get_all()
         return self.render('users', users=users, title="Gestão de Usuários")
+    
+    @admin_required
+    def list_users(self):
+        users = self.user_service.get_all()
+        return self.render('users', users=users, title="Gestão de Utilizadores")

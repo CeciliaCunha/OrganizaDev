@@ -1,16 +1,18 @@
 [
     {
         "id": 1,
-        "name": "Usu\u00e1rio Teste",
-        "email": "teste@email.com",
+        "name": "Admin User",
+        "email": "admin@email.com",
         "password": "123",
-        "birthdate": "1999-10-21"
+        "birthdate": "1990-01-01",
+        "role": "admin"
     },
     {
         "id": 2,
-        "name": "Cec\u00c3\u00adlia Costa",
-        "email": "cecilia.cunha2004@gmail.com",
-        "password": "Ceci0811#",
-        "birthdate": "2004-11-08"
+        "name": "Regular User",
+        "email": "user@email.com",
+        "password": "123",
+        "birthdate": "1995-05-05",
+        "role": "regular"
     }
 ]
