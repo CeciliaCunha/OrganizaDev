@@ -4,7 +4,7 @@
 
 OrganizaDev é uma aplicação web desenvolvida em Python com o framework Bottle. O sistema funciona como um gestor de projetos e tarefas (similar ao Trello ou Asana), permitindo que utilizadores se registem, criem projetos, e adicionem tarefas a esses projetos. A aplicação foi desenhada com uma arquitetura robusta (MVC), um sistema de autenticação seguro e controlo de permissões baseado em papéis (admin/regular).
 
-Este projeto foi desenvolvido como parte da avaliação acadêmica, focando na aplicação de conceitos fundamentais e avançados de Orientação a Objetos e desenvolvimento web.
+Este projeto foi desenvolvido como parte da avaliação académica, focando na aplicação de conceitos fundamentais e avançados de Orientação a Objetos e desenvolvimento web.
 
 ---
 
@@ -45,6 +45,12 @@ A aplicação segue uma estrutura inspirada no padrão MVC para separar as respo
 * **`views/`**: Contém os ficheiros `.tpl` utilizados pelo Bottle como páginas HTML.
 * **`static/`**: Contém ficheiros estáticos como CSS, imagens e JavaScript.
 * **`data/`**: Armazena os ficheiros `.json` que simulam a base de dados.
+
+---
+
+## Diagrama de Classes
+
+![Diagrama de Classes do OrganizaDev](diagrama-de-classes.png)
 
 ---
 
