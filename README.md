@@ -1,105 +1,111 @@
-# Projeto Template: POO com Python + Bottle + JSON
+# OrganizaDev 🚀
 
-Este é um projeto de template educacional voltado para o ensino de **Programação Orientada a Objetos (POO)** do Prof. Lucas Boaventura, Universidade de Brasília (UnB).
+## Descrição do Projeto
 
-Utiliza o microframework **Bottle**. Ideal para uso em disciplinas introdutórias de Engenharia de Software ou Ciência da Computação.
+OrganizaDev é uma aplicação web desenvolvida em Python com o framework Bottle. O sistema funciona como um gestor de projetos e tarefas (similar ao Trello ou Asana), permitindo que utilizadores se registem, criem projetos, e adicionem tarefas a esses projetos. A aplicação foi desenhada com uma arquitetura robusta (MVC), um sistema de autenticação seguro e controlo de permissões baseado em papéis (admin/regular).
 
-## 💡 Objetivo
-
-Fornecer uma base simples, extensível e didática para construção de aplicações web orientadas a objetos com aplicações WEB em Python, ideal para trabalhos finais ou exercícios práticos.
+Este projeto foi desenvolvido como parte da avaliação acadêmica, focando na aplicação de conceitos fundamentais e avançados de Orientação a Objetos e desenvolvimento web.
 
 ---
 
-## 🗂 Estrutura de Pastas
+## Funcionalidades Principais
 
-```bash
-poo-python-bottle-template/
-├── app.py # Ponto de entrada do sistema
-├── config.py # Configurações e caminhos do projeto
-├── main.py # Inicialização da aplicação
-├── requirements.txt # Dependências do projeto
-├── README.md # Este arquivo
-├── controllers/ # Controladores e rotas
-├── models/ # Definição das entidades (ex: User)
-├── services/ # Lógica de persistência (JSON)
-├── views/ # Arquivos HTML (Bottle Templating)
-├── static/ # CSS, JS e imagens
-├── data/ # Arquivos JSON de dados
-└── .vscode/ # Configurações opcionais do VS Code
-```
+* **Gestão de Utilizadores:**
+    * Sistema completo de **Registo** e **Login**.
+    * Sessões de utilizador geridas por cookies seguros.
+    * Sistema de **Permissões** com dois papéis: `admin` e `regular`.
 
+* **Gestão de Projetos:**
+    * Funcionalidade **CRUD** completa (Criar, Ler, Atualizar, Excluir) para projetos.
+    * Os projetos são associados ao utilizador que os criou; um utilizador só pode ver e gerir os seus próprios projetos.
 
----
+* **Gestão de Tarefas:**
+    * Funcionalidade **CRUD** completa para tarefas, associadas a um projeto específico.
+    * Implementação de **Polimorfismo** com dois tipos de tarefas: Tarefas Normais e **Tarefas Marco (Milestone)**, que são exibidas com um destaque visual.
 
-## 📁 Descrição das Pastas
+* **Segurança e Qualidade:**
+    * **Rotas Protegidas:** A maioria das páginas só é acessível após o login.
+    * **Acesso Restrito:** Páginas como a de gestão de utilizadores só são acessíveis a administradores.
+    * **Tratamento de Erros:** Páginas de erro 403 (Acesso Proibido) e 404 (Não Encontrado) personalizadas.
 
-### `controllers/`
-Contém as classes responsáveis por lidar com as rotas da aplicação. Exemplos:
-- `user_controller.py`: rotas para listagem, adição, edição e remoção de usuários.
-- `base_controller.py`: classe base com utilitários comuns.
-
-### `models/`
-Define as classes que representam os dados da aplicação. Exemplo:
-- `user.py`: classe `User`, com atributos como `id`, `name`, `email`, etc.
-
-### `services/`
-Responsável por salvar, carregar e manipular dados usando arquivos JSON. Exemplo:
-- `user_service.py`: contém métodos como `get_all`, `add_user`, `delete_user`.
-
-### `views/`
-Contém os arquivos `.tpl` utilizados pelo Bottle como páginas HTML:
-- `layout.tpl`: estrutura base com navegação e bloco `content`.
-- `users.tpl`: lista os usuários.
-- `user_form.tpl`: formulário para adicionar/editar usuário.
-
-### `static/`
-Arquivos estáticos como:
-- `css/style.css`: estilos básicos.
-- `js/main.js`: scripts JS opcionais.
-- `img/BottleLogo.png`: exemplo de imagem.
-
-### `data/`
-Armazena os arquivos `.json` que simulam o banco de dados:
-- `users.json`: onde os dados dos usuários são persistidos.
+* **Arquitetura e Conceitos de OO:**
+    * **Estrutura MVC-like:** Código organizado em Models, Views, Controllers e Services.
+    * **Herança:** Uso de uma `BaseModel` para partilhar código comum entre os modelos.
+    * **Encapsulamento:** Atributos de modelo protegidos e acedidos via métodos.
 
 ---
 
-## ▶️ Como Executar
+## Arquitetura do Projeto
 
-1. Crie o ambiente virtual na pasta fora do seu projeto:
-```bash
-python -m venv venv
-source venv/bin/activate  # Linux/Mac
-venv\\Scripts\\activate     # Windows
-```
+A aplicação segue uma estrutura inspirada no padrão MVC para separar as responsabilidades:
 
-2. Entre dentro do seu projeto criado a partir do template e instale as dependências:
-```bash
-pip install -r requirements.txt
-```
-
-3. Rode a aplicação:
-```bash
-python main.py
-```
-
-4. Accese sua aplicação no navegador em: [http://localhost:8080](http://localhost:8080)
+* **`controllers/`**: Contém as classes responsáveis por lidar com as rotas da aplicação (ex: `project_controller.py`).
+* **`models/`**: Define as classes que representam os dados da aplicação (ex: `User`, `Project`).
+* **`services/`**: Responsável pela lógica de negócio e pela manipulação dos dados, fazendo a ponte entre os controllers e os models.
+* **`views/`**: Contém os ficheiros `.tpl` utilizados pelo Bottle como páginas HTML.
+* **`static/`**: Contém ficheiros estáticos como CSS, imagens e JavaScript.
+* **`data/`**: Armazena os ficheiros `.json` que simulam a base de dados.
 
 ---
 
-## ✍️ Personalização
-Para adicionar novos modelos (ex: Atividades):
-
-1. Crie a classe no diretório **models/**.
-
-2. Crie o service correspondente para manipulação do JSON.
-
-3. Crie o controller com as rotas.
-
-4. Crie as views .tpl associadas.
+## Tecnologias Utilizadas
+* **Backend:** Python 3
+* **Framework Web:** Bottle
+* **Frontend:** HTML5, CSS3, Bootstrap 5 (via CDN)
+* **Persistência de Dados:** Ficheiros JSON
 
 ---
 
-## 🧠 Autor e Licença
-Projeto desenvolvido como template didático para disciplinas de Programação Orientada a Objetos, baseado no [BMVC](https://github.com/hgmachine/bmvc_start_from_this).
-Você pode reutilizar, modificar e compartilhar livremente.
+## Como Executar o Projeto
+
+Para executar o projeto localmente, siga estes passos:
+
+1.  **Clone o repositório:**
+    ```bash
+    git clone <URL_DO_SEU_REPOSITORIO_AQUI>
+    cd OrganizaDev
+    ```
+
+2.  **Crie e ative um ambiente virtual:**
+    ```bash
+    # Criar o ambiente
+    python -m venv venv
+
+    # Ativar no Windows
+    .\venv\Scripts\activate
+
+    # Ativar no macOS/Linux
+    source venv/bin/activate
+    ```
+
+3.  **Instale as dependências:**
+    ```bash
+    pip install -r requirements.txt
+    ```
+
+4.  **Execute a aplicação:**
+    ```bash
+    python main.py
+    ```
+
+5.  **Aceda à aplicação:**
+    * Abra o seu navegador e vá para `http://localhost:8080`.
+
+---
+
+## Utilizadores de Teste
+
+Pode usar as seguintes credenciais para testar a aplicação:
+
+* **Administrador:**
+    * **Email:** `admin@email.com`
+    * **Password:** `123`
+* **Utilizador Regular:**
+    * **Email:** `user@email.com`
+    * **Password:** `123`
+
+---
+
+## Créditos
+
+Este projeto foi desenvolvido com base no template didático de Programação Orientada a Objetos do Prof. Lucas Boaventura, da Universidade de Brasília (UnB).
