@@ -24,7 +24,7 @@
         <select class="form-select" id="status" name="status" required>
             <option value="Pendente" % if project and project.get_status() == 'Pendente': selected % end>Pendente</option>
             <option value="Em Progresso" % if project and project.get_status() == 'Em Progresso': selected % end>Em Progresso</option>
-            <option value="Concluído" % if project and project.get_status() == 'Concluído': selected % end>Concluído</option>
+            <option value="Concluido" % if project and project.get_status() == 'Concluído': selected % end>Concluído</option>
         </select>
     </div>
     <button type="submit" class="btn btn-success">Salvar</button>

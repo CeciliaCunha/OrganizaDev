@@ -16,7 +16,7 @@
             <label for="priority" class="form-label">Prioridade:</label>
             <select class="form-select" id="priority" name="priority" required>
                 <option value="Baixa" % if task.get_priority() == 'Baixa': selected % end>Baixa</option>
-                <option value="Média" % if task.get_priority() == 'Média': selected % end>Média</option>
+                <option value="Media" % if task.get_priority() == 'Média': selected % end>Média</option>
                 <option value="Alta" % if task.get_priority() == 'Alta': selected % end>Alta</option>
             </select>
         </div>
