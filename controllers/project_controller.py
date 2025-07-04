@@ -30,7 +30,8 @@ class ProjectController(BaseController):
     def add_project(self):
         """Exibe o formulário (GET) ou processa a criação de um novo projeto (POST)."""
         if request.method == 'GET':
-            return self.render('project_form', project=None, action="/projects/add", user_id_example=sample_user_id, title="Adicionar Projeto")
+            return self.render('project_form', project=None, action="/projects/add", title="Adicionar Projeto")
+        
         else:
             user_id = int(request.get_cookie('user_id', secret=self.app.config['SECRET_KEY']))
             self.project_service.save_from_form(user_id)

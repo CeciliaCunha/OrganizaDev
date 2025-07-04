@@ -21,11 +21,17 @@ class UserController(BaseController):
         self.app.route('/users', 'GET', self.list_users)
 
     def index(self):
-        """Página inicial. Redireciona para projetos ou login."""
+        """
+        Página inicial. Redireciona para projetos se logado,
+        ou mostra a landing page se não estiver logado.
+        """
         user_id = request.get_cookie('user_id', secret=self.app.config['SECRET_KEY'])
         if user_id:
+            # Se o utilizador já está logado, vai direto para os seus projetos
             return redirect('/projects')
-        return redirect('/login')
+    
+        # Se não está logado, mostra a nossa nova e bonita landing page
+        return self.render('landing_page')
 
     def login(self):
         """Exibe a página de login (GET) ou processa a tentativa de login (POST)."""

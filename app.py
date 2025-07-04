@@ -1,5 +1,5 @@
 import os
-from bottle import Bottle, TEMPLATE_PATH, response, error, template, request
+from bottle import Bottle, TEMPLATE_PATH, response, error, template, request, static_file
 from config import Config
 
 class App:
@@ -18,6 +18,11 @@ class App:
         from controllers import init_controllers
         print('🚀 Inicializa rotas!')
         init_controllers(self.bottle)
+
+        @self.bottle.route('/static/<filepath:path>')
+        def server_static(filepath):
+            return static_file(filepath, root='./static')
+
 
     def setup_error_handlers(self):
         @self.bottle.error(404)
