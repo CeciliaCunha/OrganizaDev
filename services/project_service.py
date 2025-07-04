@@ -42,3 +42,6 @@ class ProjectService:
     def delete_project_and_tasks(self, project_id):
         self.task_service.delete_by_project_id(project_id)
         return self.project_model.delete(project_id)
+    
+    def get_for_user(self, user_id):
+        return self.project_model.get_by_user_id(user_id)

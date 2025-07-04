@@ -18,8 +18,9 @@ class ProjectController(BaseController):
 
     @login_required
     def list_projects(self):
-        projects = self.project_service.get_all()
-        return self.render('projects', projects=projects, title="Lista de Projetos")
+        user_id = int(request.get_cookie('user_id', secret=self.app.config['SECRET_KEY']))
+        projects = self.project_service.get_for_user(user_id)
+        return self.render('projects', projects=projects, title="Meus Projetos")
 
     @login_required
     def add_project(self):

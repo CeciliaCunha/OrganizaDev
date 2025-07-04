@@ -51,3 +51,6 @@ class ProjectModel:
             self._save()
             return True
         return False
+ 
+    def get_by_user_id(self, user_id):
+        return [p for p in self._projects if p.get_user_id() == user_id]
