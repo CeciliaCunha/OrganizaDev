@@ -14,5 +14,13 @@
         "password": "123",
         "birthdate": "1995-05-05",
         "role": "regular"
+    },
+    {
+        "id": 3,
+        "name": "Cecilia Costa Rebelo Cunha",
+        "email": "cecilia.cunha2004@gmail.com",
+        "password": "Ceci0811#",
+        "birthdate": "2004-11-08",
+        "role": "regular"
     }
 ]
