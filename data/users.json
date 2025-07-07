@@ -22,5 +22,13 @@
         "password": "Ceci0811#",
         "birthdate": "2004-11-08",
         "role": "regular"
+    },
+    {
+        "id": 4,
+        "name": "Fulano da Silva",
+        "email": "fulano@email.com",
+        "password": "123",
+        "birthdate": "2025-07-08",
+        "role": "regular"
     }
 ]

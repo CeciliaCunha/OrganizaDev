@@ -35,6 +35,8 @@ class ProjectModel:
 
     def get_by_id(self, project_id):
         """Encontra e retorna um projeto específico pelo seu ID."""
+        print(f"DEBUG: Model a procurar por project_id: {project_id} (tipo: {type(project_id)})")
+        print(f"DEBUG: IDs de projetos existentes no sistema: {[p.get_id() for p in self._projects]}")
         for p in self._projects:
             if p.get_id() == project_id:
                 return p

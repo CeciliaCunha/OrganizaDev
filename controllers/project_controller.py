@@ -1,15 +1,14 @@
 from bottle import request
 from .base_controller import BaseController, login_required
-from services.project_service import ProjectService
-from services.user_service import UserService
+from services import project_service_instance, user_service_instance
 
 class ProjectController(BaseController):
     """Controla todas as rotas e lógicas relacionadas com a gestão de Projetos."""
     def __init__(self, app):
         """Inicializa o controller, os serviços e configura as rotas."""
         super().__init__(app)
-        self.project_service = ProjectService()
-        self.user_service = UserService()
+        self.project_service = project_service_instance
+        self.user_service = user_service_instance
         self.setup_routes()
 
     def setup_routes(self):

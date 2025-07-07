@@ -1,6 +1,6 @@
 from bottle import request, response, redirect
 from .base_controller import BaseController, login_required, admin_required
-from services.user_service import UserService
+from services import user_service_instance
 from models.user import User
 
 class UserController(BaseController):
@@ -9,7 +9,7 @@ class UserController(BaseController):
     def __init__(self, app):
         """Inicializa o controller, o serviço e configura as rotas."""
         super().__init__(app)
-        self.user_service = UserService()
+        self.user_service = user_service_instance
         self.setup_routes()
 
     def setup_routes(self):

@@ -1,7 +1,6 @@
 from bottle import request
 from .base_controller import BaseController, login_required
-from services.project_service import ProjectService
-from services.task_service import TaskService
+from services import project_service_instance, task_service_instance
 from models.task import Task, MilestoneTask
 
 class TaskController(BaseController):
@@ -10,8 +9,8 @@ class TaskController(BaseController):
     def __init__(self, app):
         """Inicializa o controller, os serviços e configura as rotas."""
         super().__init__(app)
-        self.project_service = ProjectService()
-        self.task_service = TaskService()
+        self.project_service = project_service_instance
+        self.task_service = task_service_instance
         self.setup_routes()
 
     def setup_routes(self):
@@ -22,9 +21,11 @@ class TaskController(BaseController):
 
     @login_required 
     def tasks_page(self, project_id):
+        print(f"DEBUG: Controller a procurar projeto com ID: {project_id}")
         """Página principal de tarefas de um projeto. Lista as tarefas (GET) e adiciona novas (POST)."""
         project = self.project_service.get_by_id(project_id)
         if not project:
+            print(f"ERRO: Projeto com ID {project_id} não foi encontrado pelo serviço.")
             return "Projeto não encontrado"
         
         if request.method == 'POST':
